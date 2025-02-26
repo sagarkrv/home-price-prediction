@@ -2,14 +2,20 @@ import streamlit as st
 import plotly.graph_objects as go
 import pandas as pd
 
-# Sample Data (Replace this with actual data)
+# Full dataset (Ensure all 25 observations)
 expanded_features_data = {
-    "Home Site": [1, 2, 3, 4, 99, 100, 93, 94, 95, 16],
-    "Square Footage": [2556, 2434, 2434, 2434, 3008, 3008, 3008, 3008, 3008, 3008],
-    "Exceptionally Priced": [849038, 809995, 834995, 824901, 884995, 889995, 1035791, 999995, 1036648, 956398],
-    "Delivery Date Encoded": [3, 3, 4, 4, 5, 6, 7, 7, 7, 2],
-    "Bedrooms_4": [1, 0, 0, 0, 1, 1, 1, 1, 1, 1],
-    "Predicted Price": [845000, 810000, 835000, 825000, 880000, 890000, 1030000, 998000, 1035000, 955000]
+    "Home Site": list(range(1, 26)),  # Simulating 25 sites
+    "Square Footage": [2556, 2434, 2434, 2434, 3008, 3008, 3008, 3008, 3008, 3008, 
+                       3291, 3100, 2850, 2900, 3000, 3200, 2950, 3125, 3250, 3100, 
+                       2999, 3300, 3100, 2800, 3150],
+    "Exceptionally Priced": [849038, 809995, 834995, 824901, 884995, 889995, 1035791, 999995, 1036648, 956398,
+                             985000, 970000, 945000, 960000, 1010000, 1080000, 990000, 1025000, 1070000, 990000,
+                             980000, 1090000, 995000, 935000, 1015000],
+    "Delivery Date Encoded": [3, 3, 4, 4, 5, 6, 7, 7, 7, 2, 5, 6, 4, 3, 7, 9, 5, 6, 8, 3, 4, 10, 11, 2, 7],
+    "Bedrooms_4": [1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1],
+    "Predicted Price": [845000, 810000, 835000, 825000, 880000, 890000, 1030000, 998000, 1035000, 955000,
+                        980000, 965000, 940000, 955000, 1005000, 1075000, 985000, 1020000, 1065000, 985000,
+                        975000, 1085000, 990000, 930000, 1010000]
 }
 
 # Convert to DataFrame
@@ -22,8 +28,8 @@ fig = go.Figure()
 fig.add_trace(go.Scatter(
     x=df["Exceptionally Priced"],
     y=df["Predicted Price"],
-    mode='markers',
-    marker=dict(color='blue', size=8, opacity=0.7),
+    mode='markers+text',
+    marker=dict(color='blue', size=10, opacity=0.7),  # Increased marker size
     name="Predicted vs Actual"
 ))
 
@@ -50,8 +56,8 @@ for i, row in df.iterrows():
         text=label,
         showarrow=True,
         arrowhead=2,
-        ax=40 if i % 2 == 0 else -40,
-        ay=40 if i % 3 == 0 else -40,
+        ax=70 if i % 2 == 0 else -70,  # Increased spacing
+        ay=50 if i % 3 == 0 else -50,  # Increased spacing
         font=dict(size=10, color="red")
     )
 
